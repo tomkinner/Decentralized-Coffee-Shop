@@ -40,8 +40,22 @@ const coffeeShopABI = [
 ];
 
 const usdcABI = [
-  "function approve(address spender, uint256 amount) public returns (bool)"
+  "function approve(address spender, uint256 amount) public returns (bool)",
+  "function balanceOf(address account) public view returns (uint256)"
 ];
+
+// Load & Update User Balance
+async function updateBalance(userAddress) {
+    try {
+        const usdcContract = new ethers.Contract(usdcAddress, usdcABI, provider);
+        const balance = await usdcContract.balanceOf(userAddress);
+        // USDC uses 6 decimals
+        const formattedBalance = ethers.formatUnits(balance, 6);
+        document.getElementById('usdcBalance').innerText = parseFloat(formattedBalance).toFixed(2);
+    } catch (err) {
+        console.error("Error fetching balance:", err);
+    }
+}
 
 // Wallet Connect Function
 document.getElementById('connectButton').addEventListener('click', async () => {
@@ -51,8 +65,10 @@ document.getElementById('connectButton').addEventListener('click', async () => {
             signer = await provider.getSigner();
             const address = await signer.getAddress();
             
-            // Text change properly formatted
             document.getElementById('walletAddress').innerText = `Connected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+            
+            // Trigger balance fetching
+            await updateBalance(address);
         } catch (err) {
             console.error(err);
             alert("Connection rejected.");
@@ -80,6 +96,10 @@ async function buyCoffeeFromWeb(coffeeId) {
         await buyTx.wait();
         
         alert("Coffee Successfully Purchased! 🎉☕");
+        
+        // Update balance after purchase
+        const address = await signer.getAddress();
+        await updateBalance(address);
     } catch (error) {
         console.error(error);
         alert("Transaction Failed!");
