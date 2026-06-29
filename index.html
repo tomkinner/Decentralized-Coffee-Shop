@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decentralized Coffee Shop</title>
+    <!-- Ethers.js library for Blockchain Connection -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+</head>
+<body>
+    <h1>Welcome to Decentralized Coffee Shop! ☕</h1>
+    <button id="connectButton">Connect Wallet</button>
+    <p id="walletAddress"></p>
+
+    <hr>
+
+    <h3>Buy Coffee (USDC Needed)</h3>
+    <button onclick="buyCoffeeFromWeb(1)">Buy Espresso (1 USDC)</button>
+    <button onclick="buyCoffeeFromWeb(2)">Buy Cappuccino (2 USDC)</button>
+    <button onclick="buyCoffeeFromWeb(3)">Buy Latte (3 USDC)</button>
+
+    <script src="app.js"></script>
+</body>
+</html>
