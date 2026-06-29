@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Decentralized Coffee Shop</title>
-    <!-- Tailwind CSS for Beautiful Styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Ethers.js Library (Ei line-ti miss chhilo) -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
     <style>
         body {
             background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
@@ -23,14 +25,14 @@
                 <i class="fa-solid fa-mug-hot text-amber-500 text-2xl"></i>
                 <span class="text-xl font-bold tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Web3 Coffee</span>
             </div>
-            <button id="connectWallet" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg shadow-orange-500/20 flex items-center space-x-2">
+            <button id="connectButton" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg shadow-orange-500/20 flex items-center space-x-2">
                 <i class="fa-solid fa-wallet"></i>
-                <span>Connect Wallet</span>
+                <span id="walletAddress">Connect Wallet</span>
             </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12 text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Buy Coffee with Crypto
@@ -39,7 +41,6 @@
             Experience the future of ordering. Secure, decentralized, and freshly brewed coffee right to your Web3 wallet.
         </p>
 
-        <!-- Booking/Buying Card -->
         <div class="bg-slate-900/60 border border-gray-800 rounded-3xl p-8 backdrop-blur-md shadow-2xl max-w-md mx-auto">
             <div class="mb-6 flex justify-center">
                 <div class="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center border border-amber-500/20">
@@ -49,7 +50,6 @@
             
             <h2 class="text-2xl font-bold mb-6">Order Your Espresso</h2>
             
-            <!-- Input / Action Area -->
             <div class="space-y-4">
                 <div class="text-left">
                     <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-2">Select Payment Token</label>
@@ -58,21 +58,19 @@
                             <i class="fa-solid fa-dollar-sign text-green-500"></i>
                             <span class="font-medium">USDC (Needed)</span>
                         </div>
-                        <span class="text-sm text-gray-500">Balance: 0.00</span>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="grid grid-cols-1 gap-3 pt-4">
-                    <button id="buy1" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
+                    <button onclick="buyCoffeeFromWeb(1)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
                         <span>Buy 1 Espresso (1 USDC)</span>
                         <i class="fa-solid fa-arrow-right text-gray-500 group-hover:text-amber-500 transition-colors"></i>
                     </button>
-                    <button id="buy2" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
+                    <button onclick="buyCoffeeFromWeb(2)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
                         <span>Buy 2 Espresso (2 USDC)</span>
                         <i class="fa-solid fa-arrow-right text-gray-500 group-hover:text-amber-500 transition-colors"></i>
                     </button>
-                    <button id="buy3" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
+                    <button onclick="buyCoffeeFromWeb(3)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 hover:border-amber-500/50 text-gray-200 font-medium py-3 px-4 rounded-xl transition-all duration-200 flex justify-between items-center group">
                         <span>Buy 3 Espresso (3 USDC)</span>
                         <i class="fa-solid fa-arrow-right text-gray-500 group-hover:text-amber-500 transition-colors"></i>
                     </button>
@@ -81,7 +79,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="text-center py-8 text-sm text-gray-600 border-t border-gray-900 mt-12">
         <p>© 2026 Decentralized Coffee Shop. All rights reserved.</p>
     </footer>
