@@ -45,32 +45,83 @@
             </p>
 
             <!-- Menu Cards Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                <!-- Card 1 -->
-                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl p-6 backdrop-blur-md flex flex-col justify-between">
-                    <div>
-                        <i class="fa-solid fa-mug-saucer text-amber-500 text-3xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Espresso</h3>
-                        <p class="text-sm text-gray-400 mb-4">Rich, intense, and full-bodied espresso shot.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+
+                <!-- Card 1: Espresso -->
+                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl overflow-hidden backdrop-blur-md flex flex-col justify-between shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" alt="Espresso" class="w-full h-40 object-cover" />
+                    <div class="p-5 flex flex-col justify-between flex-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Espresso</h3>
+                            <p class="text-sm text-gray-400 mb-4">Rich, intense, and full-bodied espresso shot.</p>
+                        </div>
+                        <button onclick="buyCoffeeFromWeb(1)" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy 1 Espresso</span>
+                            <span>1 USDC</span>
+                        </button>
                     </div>
-                    <button onclick="buyCoffeeFromWeb(1)" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                        <span>Buy 1 Espresso</span>
-                        <span>1 USDC</span>
-                    </button>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl p-6 backdrop-blur-md flex flex-col justify-between">
-                    <div>
-                        <i class="fa-solid fa-mug-hot text-amber-400 text-3xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Cappuccino</h3>
-                        <p class="text-sm text-gray-400 mb-4">Espresso mixed with perfectly frothed hot milk foam.</p>
+                <!-- Card 2: Cappuccino -->
+                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl overflow-hidden backdrop-blur-md flex flex-col justify-between shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=600&auto=format&fit=crop" alt="Cappuccino" class="w-full h-40 object-cover" />
+                    <div class="p-5 flex flex-col justify-between flex-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Cappuccino</h3>
+                            <p class="text-sm text-gray-400 mb-4">Espresso mixed with perfectly frothed hot milk foam.</p>
+                        </div>
+                        <button onclick="buyCoffeeFromWeb(2)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy 1 Cappuccino</span>
+                            <span>2 USDC</span>
+                        </button>
                     </div>
-                    <button onclick="buyCoffeeFromWeb(2)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                        <span>Buy 2 Espresso</span>
-                        <span>2 USDC</span>
-                    </button>
                 </div>
+
+                <!-- Card 3: Latte -->
+                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl overflow-hidden backdrop-blur-md flex flex-col justify-between shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop" alt="Latte" class="w-full h-40 object-cover" />
+                    <div class="p-5 flex flex-col justify-between flex-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Latte</h3>
+                            <p class="text-sm text-gray-400 mb-4">Smooth espresso with steamed milk and light foam.</p>
+                        </div>
+                        <button onclick="buyCoffeeFromWeb(3)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy 1 Latte</span>
+                            <span>3 USDC</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4: Mocha -->
+                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl overflow-hidden backdrop-blur-md flex flex-col justify-between shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" alt="Mocha" class="w-full h-40 object-cover" />
+                    <div class="p-5 flex flex-col justify-between flex-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Mocha</h3>
+                            <p class="text-sm text-gray-400 mb-4">Rich espresso blended with chocolate syrup and steamed milk.</p>
+                        </div>
+                        <button onclick="buyCoffeeFromWeb(4)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy 1 Mocha</span>
+                            <span>4 USDC</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5: Iced Americano -->
+                <div class="bg-slate-900/60 border border-gray-800 rounded-2xl overflow-hidden backdrop-blur-md flex flex-col justify-between shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?q=80&w=600&auto=format&fit=crop" alt="Iced Americano" class="w-full h-40 object-cover" />
+                    <div class="p-5 flex flex-col justify-between flex-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Iced Americano</h3>
+                            <p class="text-sm text-gray-400 mb-4">Chilled espresso diluted with cold water and ice.</p>
+                        </div>
+                        <button onclick="buyCoffeeFromWeb(5)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy 1 Iced Americano</span>
+                            <span>2 USDC</span>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
