@@ -1,121 +1,107 @@
-// Smart Contract Configurations
-const COFFEE_SHOP_ADDRESS = "0xf78DD4D420264190e491f87F12f1e81c1C1c7285"; // Your deployed contract address
-const USDC_ADDRESS = "0x3600000000000000000000000000000000000000"; // Arc Testnet USDC
-
-// Contract ABIs
-const COFFEE_SHOP_ABI = [
-    "function coffees(uint256) view returns (string name, uint256 price)",
-    "function buyCoffee(uint256 _id) external",
-    "function owner() view returns (address)"
-];
-
-const USDC_ABI = [
-    "function balanceOf(address account) view returns (uint256)",
-    "function approve(address spender, uint256 amount) returns (bool)",
-    "function allowance(address owner, address spender) view returns (uint256)"
-];
-
-// Global Variables
 let provider;
 let signer;
-let coffeeContract;
-let usdcContract;
-let userAddress;
+const coffeeShopAddress = "0xf78DD4D420264190e491f87F12f1e81c1C1c7285";
+const usdcAddress = "0x3600000000000000000000000000000000000000"; // Arc Testnet USDC
 
-// DOM Elements
-const connectButton = document.getElementById("connectButton");
-const walletAddressSpan = document.getElementById("walletAddress");
-const usdcBalanceSpan = document.getElementById("usdcBalance");
+const coffeeShopABI = [
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_name", "type": "string" },
+      { "internalType": "uint256", "name": "_price", "type": "uint256" }
+    ],
+    "name": "addCoffee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "_coffeeId", "type": "uint256" }],
+    "name": "buyCoffee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_usdcAddress", "type": "address" }],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "buyer", "type": "address" },
+      { "indexed": false, "internalType": "string", "name": "coffeeName", "type": "string" },
+      { "indexed": false, "internalType": "uint256", "name": "price", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "CoffeePurchased",
+    "type": "event"
+  }
+];
 
-// Connect Wallet Function
-async function connectWallet() {
+const usdcABI = [
+  "function approve(address spender, uint256 amount) public returns (bool)",
+  "function balanceOf(address account) public view returns (uint256)"
+];
+
+// Load & Update User Balance
+async function updateBalance(userAddress) {
+    try {
+        const usdcContract = new ethers.Contract(usdcAddress, usdcABI, provider);
+        const balance = await usdcContract.balanceOf(userAddress);
+        // USDC uses 6 decimals
+        const formattedBalance = ethers.formatUnits(balance, 6);
+        document.getElementById('usdcBalance').innerText = parseFloat(formattedBalance).toFixed(2);
+    } catch (err) {
+        console.error("Error fetching balance:", err);
+    }
+}
+
+// Wallet Connect Function
+document.getElementById('connectButton').addEventListener('click', async () => {
     if (window.ethereum) {
         try {
             provider = new ethers.BrowserProvider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
             signer = await provider.getSigner();
-            userAddress = await signer.getAddress();
-
-            // Initialize Contracts
-            coffeeContract = new ethers.Contract(COFFEE_SHOP_ADDRESS, COFFEE_SHOP_ABI, signer);
-            usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
-
-            // Update UI
-            walletAddressSpan.innerText = `${userAddress.substring(0, 6)}...${userAddress.substring(userAddress.length - 4)}`;
+            const address = await signer.getAddress();
             
-            // Fetch & Update Balance
-            await updateBalance();
-        } catch (error) {
-            console.error("Wallet connection failed:", error);
-            alert("Failed to connect wallet.");
+            document.getElementById('walletAddress').innerText = `Connected: ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+            
+            // Trigger balance fetching
+            await updateBalance(address);
+        } catch (err) {
+            console.error(err);
+            alert("Connection rejected.");
         }
     } else {
-        alert("MetaMask is not installed. Please install MetaMask!");
+        alert("Please install MetaMask!");
     }
-}
+});
 
-// Fetch USDC Balance
-async function updateBalance() {
-    if (usdcContract && userAddress) {
-        try {
-            const rawBalance = await usdcContract.balanceOf(userAddress);
-            // USDC uses 6 decimals
-            const formattedBalance = ethers.formatUnits(rawBalance, 6);
-            usdcBalanceSpan.innerText = parseFloat(formattedBalance).toFixed(2);
-        } catch (error) {
-            console.error("Failed to fetch USDC balance:", error);
-        }
-    }
-}
-
-// Multi-Quantity Buy Coffee Function
-async function buyCoffeeWithQty(coffeeId) {
-    if (!coffeeContract || !usdcContract) {
-        alert("Please connect your wallet first!");
-        return;
-    }
-
-    const qtyInput = document.getElementById(`qty-${coffeeId}`);
-    const quantity = parseInt(qtyInput ? qtyInput.value : 1);
-
-    if (isNaN(quantity) || quantity < 1) {
-        alert("Please enter a valid quantity!");
-        return;
-    }
-
+// Main Coffee Buy Logic
+async function buyCoffeeFromWeb(coffeeId) {
+    if (!signer) return alert("Please connect wallet first!");
     try {
-        // 1. Get Coffee price from smart contract
-        const coffee = await coffeeContract.coffees(coffeeId);
-        const singlePrice = coffee.price; // BigInt value in USDC units (6 decimals)
-
-        // Calculate total required USDC price
-        const totalPrice = BigInt(singlePrice) * BigInt(quantity);
-
-        console.log(`Purchasing ${quantity} coffee(s). Total USDC: ${totalPrice.toString()}`);
-
-        // 2. Approve total amount of USDC in 1 transaction
-        alert(`Step 1/2: Approving USDC for ${quantity} item(s)... Please confirm in wallet.`);
-        const approveTx = await usdcContract.approve(COFFEE_SHOP_ADDRESS, totalPrice);
-        await approveTx.wait();
-
-        // 3. Sequential purchase transactions for each item
-        alert("Step 2/2: Approval successful! Processing your purchase...");
-        for (let i = 0; i < quantity; i++) {
-            const buyTx = await coffeeContract.buyCoffee(coffeeId);
-            await buyTx.wait();
-        }
-
-        alert(`Successfully bought ${quantity} coffee(s)!`);
+        const usdcContract = new ethers.Contract(usdcAddress, usdcABI, signer);
+        const price = ethers.parseUnits(coffeeId.toString(), 6);
         
-        // Refresh Balance
-        await updateBalance();
+        console.log("Requesting USDC Approval...");
+        const approveTx = await usdcContract.approve(coffeeShopAddress, price);
+        await approveTx.wait();
+        console.log("Approval Success!");
+        
+        const coffeeShopContract = new ethers.Contract(coffeeShopAddress, coffeeShopABI, signer);
+        console.log("Buying Coffee...");
+        const buyTx = await coffeeShopContract.buyCoffee(coffeeId);
+        await buyTx.wait();
+        
+        alert("Coffee Successfully Purchased! 🎉☕");
+        
+        // Update balance after purchase
+        const address = await signer.getAddress();
+        await updateBalance(address);
     } catch (error) {
-        console.error("Purchase failed:", error);
-        alert("Transaction failed or was rejected.");
+        console.error(error);
+        alert("Transaction Failed!");
     }
-}
-
-// Event Listeners
-if (connectButton) {
-    connectButton.addEventListener("click", connectWallet);
 }
