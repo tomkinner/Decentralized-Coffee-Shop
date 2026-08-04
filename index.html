@@ -53,11 +53,15 @@
                     <div class="p-5 flex flex-col justify-between flex-1">
                         <div>
                             <h3 class="text-xl font-bold mb-1">Espresso</h3>
-                            <p class="text-sm text-gray-400 mb-4">Rich, intense, and full-bodied espresso shot.</p>
+                            <p class="text-sm text-gray-400 mb-3">Rich, intense, and full-bodied espresso shot.</p>
                         </div>
-                        <button onclick="buyCoffeeFromWeb(1)" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                            <span>Buy 1 Espresso</span>
-                            <span>1 USDC</span>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <label class="text-xs text-gray-400 font-semibold">Quantity:</label>
+                            <input id="qty-1" type="number" min="1" max="10" value="1" class="w-16 bg-slate-950 border border-gray-700 rounded-lg px-2 py-1 text-center text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <button onclick="buyCoffeeWithQty(1)" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy Espresso</span>
+                            <span>1 USDC / ea</span>
                         </button>
                     </div>
                 </div>
@@ -68,11 +72,15 @@
                     <div class="p-5 flex flex-col justify-between flex-1">
                         <div>
                             <h3 class="text-xl font-bold mb-1">Cappuccino</h3>
-                            <p class="text-sm text-gray-400 mb-4">Espresso mixed with perfectly frothed hot milk foam.</p>
+                            <p class="text-sm text-gray-400 mb-3">Espresso mixed with perfectly frothed hot milk foam.</p>
                         </div>
-                        <button onclick="buyCoffeeFromWeb(2)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                            <span>Buy 1 Cappuccino</span>
-                            <span>2 USDC</span>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <label class="text-xs text-gray-400 font-semibold">Quantity:</label>
+                            <input id="qty-2" type="number" min="1" max="10" value="1" class="w-16 bg-slate-950 border border-gray-700 rounded-lg px-2 py-1 text-center text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <button onclick="buyCoffeeWithQty(2)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy Cappuccino</span>
+                            <span>2 USDC / ea</span>
                         </button>
                     </div>
                 </div>
@@ -83,11 +91,15 @@
                     <div class="p-5 flex flex-col justify-between flex-1">
                         <div>
                             <h3 class="text-xl font-bold mb-1">Latte</h3>
-                            <p class="text-sm text-gray-400 mb-4">Smooth espresso with steamed milk and light foam.</p>
+                            <p class="text-sm text-gray-400 mb-3">Smooth espresso with steamed milk and light foam.</p>
                         </div>
-                        <button onclick="buyCoffeeFromWeb(3)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                            <span>Buy 1 Latte</span>
-                            <span>3 USDC</span>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <label class="text-xs text-gray-400 font-semibold">Quantity:</label>
+                            <input id="qty-3" type="number" min="1" max="10" value="1" class="w-16 bg-slate-950 border border-gray-700 rounded-lg px-2 py-1 text-center text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <button onclick="buyCoffeeWithQty(3)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy Latte</span>
+                            <span>3 USDC / ea</span>
                         </button>
                     </div>
                 </div>
@@ -98,11 +110,15 @@
                     <div class="p-5 flex flex-col justify-between flex-1">
                         <div>
                             <h3 class="text-xl font-bold mb-1">Mocha</h3>
-                            <p class="text-sm text-gray-400 mb-4">Rich espresso blended with chocolate syrup and steamed milk.</p>
+                            <p class="text-sm text-gray-400 mb-3">Rich espresso blended with chocolate syrup and steamed milk.</p>
                         </div>
-                        <button onclick="buyCoffeeFromWeb(4)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                            <span>Buy 1 Mocha</span>
-                            <span>4 USDC</span>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <label class="text-xs text-gray-400 font-semibold">Quantity:</label>
+                            <input id="qty-4" type="number" min="1" max="10" value="1" class="w-16 bg-slate-950 border border-gray-700 rounded-lg px-2 py-1 text-center text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <button onclick="buyCoffeeWithQty(4)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy Mocha</span>
+                            <span>4 USDC / ea</span>
                         </button>
                     </div>
                 </div>
@@ -113,11 +129,15 @@
                     <div class="p-5 flex flex-col justify-between flex-1">
                         <div>
                             <h3 class="text-xl font-bold mb-1">Iced Americano</h3>
-                            <p class="text-sm text-gray-400 mb-4">Chilled espresso diluted with cold water and ice.</p>
+                            <p class="text-sm text-gray-400 mb-3">Chilled espresso diluted with cold water and ice.</p>
                         </div>
-                        <button onclick="buyCoffeeFromWeb(5)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
-                            <span>Buy 1 Iced Americano</span>
-                            <span>2 USDC</span>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <label class="text-xs text-gray-400 font-semibold">Quantity:</label>
+                            <input id="qty-5" type="number" min="1" max="10" value="1" class="w-16 bg-slate-950 border border-gray-700 rounded-lg px-2 py-1 text-center text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <button onclick="buyCoffeeWithQty(5)" class="w-full bg-slate-800 hover:bg-slate-700 border border-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl transition-all flex justify-between items-center">
+                            <span>Buy Iced Americano</span>
+                            <span>2 USDC / ea</span>
                         </button>
                     </div>
                 </div>
