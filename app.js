@@ -1,6 +1,6 @@
 // Smart Contract Configurations
 const COFFEE_SHOP_ADDRESS = "0xf78DD4D420264190e491f87F12f1e81c1C1c7285"; // Your deployed contract address
-const USDC_ADDRESS = "0x3600000000000000000000000000000000000000"; // Sepolia USDC Address
+const USDC_ADDRESS = "0x3600000000000000000000000000000000000000"; // Arc Testnet USDC
 
 // Contract ABIs
 const COFFEE_SHOP_ABI = [
